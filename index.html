@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f2e9">
+  <meta name="description" content="A quieter way to get things done. Make space for meaningful work with Soft Signal.">
+  <title>Soft Signal — A quieter way to get things done</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      let theme = null;
+      try {
+        const saved = JSON.parse(localStorage.getItem('soft-signal-v1') || '{}');
+        if (saved.theme === 'light' || saved.theme === 'dark') theme = saved.theme;
+      } catch (_) {}
+      if (!theme) {
+        try { theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch (_) { theme = 'light'; }
+      }
+      document.documentElement.dataset.theme = theme;
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.content = theme === 'dark' ? '#182832' : '#f5f2e9';
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Application navigation">
+      <a class="brand" href="#main-content" aria-label="Soft Signal">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 5c-1.2 7.5-7 10.4-7 15a7 7 0 0 0 14 0c0-4.6-5.8-7.5-7-15Z"/><path d="M16 25V13"/></svg></span>
+        <span class="brand-name">soft signal<span>MAKE ROOM FOR FOCUS</span></span>
+      </a>
+      <p class="nav-label">YOUR SPACE</p>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="nav-item is-active" type="button" data-view="focus" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25"/><path d="M12 7v5l3 2"/></svg><span>Focus</span><span class="nav-spark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5 14.4 9.6 21.5 12l-7.1 2.4L12 21.5l-2.4-7.1L2.5 12l7.1-2.4L12 2.5Z"/></svg></span></button>
+        <button class="nav-item" type="button" data-view="tasks"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.5h11M8.5 12h11m-11 5.5h11"/><path d="m3.5 6.5 1 1 2-2m-3 6.5 1 1 2-2m-3 6.5 1 1 2-2"/></svg><span>Tasks</span><span class="nav-count" id="nav-task-count">0</span></button>
+        <button class="nav-item" type="button" data-view="insights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5h16M6.5 16V11m5 5V5m5 11v-8"/></svg><span>Insights</span></button>
+      </nav>
+      <div class="sidebar-note"><span class="note-orbit" aria-hidden="true"></span><p>A little focus<br>goes a long way.</p><span class="note-caption">ONE THING AT A TIME</span></div>
+      <div class="sidebar-bottom">
+        <button class="settings-link" type="button" id="open-settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V4a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2.9Z"/></svg><span>Settings</span></button>
+      </div>
+    </aside>
+
+    <main id="main-content" class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 5c-1.2 7.5-7 10.4-7 15a7 7 0 0 0 14 0c0-4.6-5.8-7.5-7-15Z"/><path d="M16 25V13"/></svg></span><span>soft signal</span></div>
+        <p class="date-line" id="today-label"></p>
+        <div class="topbar-actions">
+          <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.2A8.2 8.2 0 0 1 8.8 3.8 8.4 8.4 0 1 0 20.2 15.2Z"/></svg>
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          </button>
+          <button class="icon-button mobile-settings" id="mobile-open-settings" aria-label="Open settings" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19 13.5a7.4 7.4 0 0 0 0-3l1.5-1.2-1.6-2.8-1.8.7a7.4 7.4 0 0 0-2.6-1.5L14.2 4h-3.3l-.3 1.7A7.4 7.4 0 0 0 8 7.2l-1.7-.7-1.7 2.8L6 10.5a7.4 7.4 0 0 0 0 3l-1.4 1.2 1.7 2.8 1.7-.7a7.4 7.4 0 0 0 2.6 1.5l.3 1.7h3.3l.3-1.7a7.4 7.4 0 0 0 2.6-1.5l1.7.7 1.7-2.8Z"/></svg></button>
+        </div>
+      </header>
+      <section class="view is-visible" id="view-focus" aria-labelledby="focus-heading">
+        <div class="welcome-row"><div><p class="eyebrow"><span class="eyebrow-dot"></span> A moment for what matters</p><h1 id="focus-heading">Find your <em>focus.</em></h1><p class="view-intro">Choose one thing. Let the rest wait.</p></div><button class="text-button settings-inline" type="button" id="open-settings-inline"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="m19 13 .1.1a1.6 1.6 0 0 1-2.2 2.2l-.1-.1a1.6 1.6 0 0 0-2.7 1.2v.2a1.6 1.6 0 0 1-3.2 0v-.2a1.6 1.6 0 0 0-2.7-1.2l-.1.1a1.6 1.6 0 0 1-2.2-2.2L6 13a1.6 1.6 0 0 0-1.2-2.7h-.2a1.6 1.6 0 0 1 0-3.2h.2A1.6 1.6 0 0 0 6 4.4l-.1-.1a1.6 1.6 0 0 1 2.2-2.2l.1.1A1.6 1.6 0 0 0 11 1h.2"/></svg> Customize your rhythm</button></div>
+        <div class="focus-layout">
+          <div class="timer-card">
+            <div class="mode-switch" role="group" aria-label="Timer mode"><button type="button" class="mode-button is-selected" data-mode="focus" aria-pressed="true">Focus</button><button type="button" class="mode-button" data-mode="shortBreak" aria-pressed="false">Short break</button><button type="button" class="mode-button" data-mode="longBreak" aria-pressed="false">Long break</button></div>
+            <div class="timer-wrap"><svg class="timer-ring" viewBox="0 0 280 280" aria-hidden="true"><circle class="timer-track" cx="140" cy="140" r="126"/><circle class="timer-progress" id="timer-progress" cx="140" cy="140" r="126"/></svg><div class="timer-center"><span class="timer-mode-label" id="timer-mode-label">TIME TO FOCUS</span><div class="timer-display" id="timer-display" role="timer" aria-live="off">25:00</div><span class="timer-status" id="timer-status">A fresh start</span></div><span class="ring-dot" aria-hidden="true"></span></div>
+            <div class="timer-controls"><button class="button button-primary" id="timer-toggle" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 10 6-10 6z"/></svg><span>Start focus</span></button><button class="button button-reset" id="timer-reset" type="button" aria-label="Reset timer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 11a7.5 7.5 0 1 1 1.7 5M4.5 5v6h6"/></svg></button></div>
+            <p class="session-hint" id="session-hint">After four focus sessions, take a longer pause.</p>
+          </div>
+          <div class="focus-side">
+            <article class="current-task-card"><div class="card-heading"><span class="section-kicker">IN THIS SESSION</span><button class="quiet-button" type="button" id="choose-task">Choose a task <span aria-hidden="true">↗</span></button></div><div class="current-task-content" id="current-task-content"><span class="task-signal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><div><h2 id="current-task-title">A little space to begin</h2><p id="current-task-subtitle">Pick a task when you’re ready.</p></div></div><div class="task-progress-row"><span>YOUR FOCUS STREAK</span><div class="streak-dots" id="streak-dots" aria-label="0 of 4 focus sessions"><i></i><i></i><i></i><i></i></div></div></article>
+            <article class="ambience-card"><div class="card-heading"><div><span class="section-kicker">SET THE MOOD</span><h2>Ambient sound</h2></div><span class="sound-status"><span class="sound-dot" id="sound-dot"></span><span id="sound-status-label">Quiet for now</span></span></div><div class="sound-list">
+              <div class="sound-row" data-sound-row="rain"><button class="sound-toggle" type="button" data-sound="rain" aria-pressed="false" aria-label="Toggle rain sound"><span class="sound-icon sound-rain" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 16.5a4 4 0 0 1 0-8 5.5 5.5 0 0 1 10.6 1.7A3.2 3.2 0 0 1 17 16.5M8 19l-1 2m5-2-1 2m5-2-1 2"/></svg></span><span>Rain</span><span class="toggle-track"><i></i></span></button><input class="volume-slider" type="range" min="0" max="100" value="38" data-volume="rain" aria-label="Rain volume"></div>
+              <div class="sound-row" data-sound-row="wind"><button class="sound-toggle" type="button" data-sound="wind" aria-pressed="false" aria-label="Toggle wind sound"><span class="sound-icon sound-wind" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8h12a2.5 2.5 0 1 0-2.5-2.5M3 12h16a2 2 0 1 1-2 2m-14 2h8a2 2 0 1 1-2 2"/></svg></span><span>Wind</span><span class="toggle-track"><i></i></span></button><input class="volume-slider" type="range" min="0" max="100" value="25" data-volume="wind" aria-label="Wind volume"></div>
+              <div class="sound-row" data-sound-row="noise"><button class="sound-toggle" type="button" data-sound="noise" aria-pressed="false" aria-label="Toggle white noise"><span class="sound-icon sound-noise" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 14V10m4 8V6m4 13V5m4 13V6m4 8v-4"/></svg></span><span>White noise</span><span class="toggle-track"><i></i></span></button><input class="volume-slider" type="range" min="0" max="100" value="18" data-volume="noise" aria-label="White noise volume"></div>
+            </div><p class="sound-footnote">Sound is created here, just for you.</p></article>
+          </div>
+        </div>
+        <div class="focus-footer"><span><span class="footer-orb"></span> Small steps count.</span><span id="today-focus-summary">0 minutes focused today</span></div>
+      </section>
+      <section class="view" id="view-tasks" aria-labelledby="tasks-heading" hidden><div class="view-heading"><div><p class="eyebrow">A gentle list, in your own time</p><h1 id="tasks-heading">Things to <em>do.</em></h1><p class="view-intro">Keep it simple. Start with what matters most.</p></div><button class="button button-primary add-task-top" type="button" id="add-task-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>New task</span></button></div><form class="task-composer" id="task-form"><label class="sr-only" for="task-input">Add a task</label><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><input id="task-input" maxlength="120" autocomplete="off" placeholder="What would you like to focus on?" required><button type="submit">Add to list <span aria-hidden="true">↗</span></button></form><div class="task-list-grid"><section class="task-group" aria-labelledby="active-tasks-heading"><div class="list-heading"><h2 id="active-tasks-heading">In progress <span id="active-task-count">0</span></h2><span class="section-kicker">YOUR NEXT STEPS</span></div><div class="task-list" id="active-task-list"></div></section><section class="task-group completed-group" aria-labelledby="completed-tasks-heading"><div class="list-heading"><h2 id="completed-tasks-heading">Completed <span id="completed-task-count">0</span></h2><span class="section-kicker">LOOK HOW FAR YOU’VE COME</span></div><div class="task-list" id="completed-task-list"></div></section></div></section>
+      <section class="view" id="view-insights" aria-labelledby="insights-heading" hidden><div class="view-heading"><div><p class="eyebrow">A little reflection</p><h1 id="insights-heading">Your <em>rhythm.</em></h1><p class="view-intro">Notice the time you’ve made for what matters.</p></div><span class="insights-range">LAST 7 DAYS <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5 14.4 9.6 21.5 12l-7.1 2.4L12 21.5l-2.4-7.1L2.5 12l7.1-2.4L12 2.5Z"/></svg></span></span></div><div class="stats-grid"><article class="stat-card stat-featured"><span class="section-kicker">TODAY’S FOCUS</span><strong id="stat-today">0<span> min</span></strong><p>A little time, well spent.</p><div class="stat-flower" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M32 4 37 24 56 15 45 32 63 37 43 42 52 61 35 50 30 64 26 43 7 52 18 35 1 30 21 26 12 7 29 18 32 4Z"/></svg></div></article><article class="stat-card"><span class="section-kicker">FOCUS SESSIONS</span><strong id="stat-sessions">0</strong><p>Finished sessions, all time</p><span class="stat-line-art" aria-hidden="true"></span></article><article class="stat-card"><span class="section-kicker">TIME IN FOCUS</span><strong id="stat-total">0<span> min</span></strong><p>Total focused minutes</p><span class="stat-line-art stat-line-blue" aria-hidden="true"></span></article></div><article class="activity-card"><div class="activity-heading"><div><span class="section-kicker">A STEADY LITTLE PRACTICE</span><h2>Your last seven days</h2></div><span id="weekly-total">0 min total</span></div><div class="chart" id="activity-chart" role="img" aria-label="Daily focus minutes for the last seven days"></div></article><article class="recent-card"><div class="activity-heading"><div><span class="section-kicker">THE WORK YOU MADE ROOM FOR</span><h2>Recent sessions</h2></div><span id="recent-count">0 sessions</span></div><div id="recent-sessions"></div></article></section>
+      <footer class="app-footer"><a href="https://tea-cocoa-studio.pages.dev" target="_blank" rel="noreferrer">An independent project by Tea Cocoa Studio <span aria-hidden="true">↗</span></a></footer>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="Main navigation"><button class="nav-item is-active" type="button" data-view="focus" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25"/><path d="M12 7v5l3 2"/></svg><span>Focus</span></button><button class="nav-item" type="button" data-view="tasks"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.5h11M8.5 12h11m-11 5.5h11"/><path d="m3.5 6.5 1 1 2-2m-3 6.5 1 1 2-2m-3 6.5 1 1 2-2"/></svg><span>Tasks</span></button><button class="nav-item" type="button" data-view="insights"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5h16M6.5 16V11m5 5V5m5 11v-8"/></svg><span>Insights</span></button></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title"><form method="dialog" class="dialog-top"><div><p class="eyebrow">MAKE IT YOURS</p><h2 id="settings-title">Your rhythm.</h2></div><button class="icon-button" value="close" aria-label="Close settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="settings-content"><fieldset class="duration-settings"><legend>Session length</legend><label>Focus <span><input type="number" min="1" max="180" id="duration-focus"> <small>min</small></span></label><label>Short break <span><input type="number" min="1" max="60" id="duration-shortBreak"> <small>min</small></span></label><label>Long break <span><input type="number" min="1" max="90" id="duration-longBreak"> <small>min</small></span></label></fieldset><div class="settings-divider"></div><label class="setting-switch"><span><strong>Soft chime</strong><small>A gentle sound when a session ends</small></span><input type="checkbox" id="sound-notification"><i></i></label><label class="setting-switch"><span><strong>Flow between sessions</strong><small>Start the next session automatically</small></span><input type="checkbox" id="auto-transition"><i></i></label><p class="settings-note">Your progress is saved in this browser, on this device.</p></div><div class="dialog-actions"><button class="button button-secondary" id="cancel-settings" type="button">Cancel</button><button class="button button-primary" id="save-settings" type="button">Save preferences</button></div></dialog>
+</body>
+</html>
